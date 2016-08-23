@@ -15,7 +15,7 @@ func main() {
   app.EnableBashCompletion = true
   app.Name = "kindle-words"
   app.Usage = "Provides methods to work with vocabulary builder "
-
+  app.Version = "0.1.0"
   // global level flags
   app.Flags = []cli.Flag{
     cli.BoolFlag{
