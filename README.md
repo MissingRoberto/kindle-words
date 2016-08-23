@@ -29,6 +29,7 @@ GLOBAL OPTIONS:
    --version, -v  print the version
 
 ```
+
 **Important**: This has been only tested on Mac for the moment.
 
 **Note**: Your Kindle must be restarted to see the changes.
