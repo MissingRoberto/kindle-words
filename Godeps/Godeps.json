@@ -1,0 +1,25 @@
+{
+	"ImportPath": "github.com/jszroberto/kindle-words",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v74",
+	"Deps": [
+		{
+			"ImportPath": "github.com/codegangsta/cli",
+			"Comment": "v1.18.0-47-g168c954",
+			"Rev": "168c95418e66e019fe17b8f4f5c45aa62ff80e23"
+		},
+		{
+			"ImportPath": "github.com/gocarina/gocsv",
+			"Rev": "80ac68b8d188bc11f9bc83b372a83bc65d4e5cde"
+		},
+		{
+			"ImportPath": "github.com/kisielk/sqlstruct",
+			"Rev": "648daed35d49dac24a4bff253b190a80da3ab6a5"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-sqlite3",
+			"Comment": "v1.1.0-78-gb5c99a7",
+			"Rev": "b5c99a720374818b629fd1fbf6d2cbb4fb9a5644"
+		}
+	]
+}
