@@ -1,0 +1,3 @@
+[submodule "assets/FrecuencyWords"]
+	path = assets/FrecuencyWords
+	url = https://github.com/hermitdave/FrequencyWords.git
