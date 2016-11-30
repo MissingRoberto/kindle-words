@@ -55,6 +55,16 @@ func main() {
 			Action: deleteBook,
 		},
 		{
+			Name:   "cleanup",
+			Usage:  "Cleanup",
+			Action: cleanUp,
+		},
+		{
+			Name:   "sync-with",
+			Usage:  "Sync database with information from CSV",
+			Action: syncDatabase,
+		},
+		{
 			Name:   "delete-word",
 			Usage:  "Delete word",
 			Action: deleteWord,
@@ -90,6 +100,60 @@ func listBooks(c *cli.Context) error {
 	for _, book := range books {
 		if language == "" || book.Language == language {
 			fmt.Println(book.Title)
+		}
+	}
+	return nil
+}
+
+func syncDatabase(c *cli.Context) error {
+	var csvfile string
+	if c.NArg() > 0 {
+		csvfile = c.Args()[0]
+	} else {
+		cli.ShowSubcommandHelp(c)
+		return nil
+	}
+
+	kindle, err := kindledb.NewKindleDB()
+	if err != nil {
+		return err
+	}
+	defer kindle.Close()
+	words, err := readCSV(csvfile)
+
+	if err != nil {
+		return err
+	}
+
+	err = exportToCSV(csvfile+"-copy", words)
+	return err
+}
+
+func cleanUp(c *cli.Context) error {
+
+	kindle, err := kindledb.NewKindleDB()
+	if err != nil {
+		return err
+	}
+	defer kindle.Close()
+
+	words, err := kindle.ReadWords()
+	if err != nil {
+		return err
+	}
+
+	frecuencies, err := getFrecuencies("en")
+	if err != nil {
+		return err
+	}
+	for _, word := range words {
+		if _, ok := frecuencies[word.Value]; ok {
+		} else {
+			fmt.Println(word.Value)
+			err := kindle.RemoveWord(word.Value)
+			if err != nil {
+				return err
+			}
 		}
 	}
 	return nil

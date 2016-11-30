@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"github.com/atotto/encoding/csv"
 	"github.com/jszroberto/kindle-words/kindledb"
 	"html/template"
 	"os"
@@ -9,6 +10,21 @@ import (
 	"strconv"
 	"strings"
 )
+
+func readCSV(filename string) ([]kindledb.Word, error) {
+	file, err := os.Open(filename)
+	defer file.Close()
+	if err != nil {
+		return nil, err
+	}
+	r := csv.NewReader(file)
+	var words = []kindledb.Word{}
+	err = r.ReadStructAll(&words)
+	if err != nil {
+		return nil, err
+	}
+	return words, nil
+}
 
 type byFrecuency []kindledb.Word
 

@@ -2,7 +2,8 @@ package main
 
 import (
 	"bufio"
-	"github.com/gocarina/gocsv"
+	// "github.com/gocarina/gocsv"
+	"github.com/atotto/encoding/csv"
 	"github.com/jszroberto/kindle-words/kindledb"
 	"os"
 	"strings"
@@ -58,11 +59,18 @@ func exportToCSV(path string, words []kindledb.Word) error {
 	}
 	defer file.Close()
 
-	err = gocsv.MarshalFile(&words, file)
+	w := csv.NewWriter(file)
+	w.WriteStructAll(words) // calls Flush internally
 
-	if err != nil {
+	if err := w.Error(); err != nil {
 		return err
 	}
+
+	// err = gocsv.MarshalFile(&words, file)
+	//
+	// if err != nil {
+	// 	return err
+	// }
 
 	return nil
 }
