@@ -144,11 +144,12 @@ func export(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
+	frecuencies, err := getFrecuencies("en")
+	if err != nil {
+		return err
+	}
 
-	// if c.NArg() > 0 {
-	//  bookName = c.Args()[0]
-	//  fmt.Println(bookName)
-	// }
+	words = sortWords(words, frecuencies)
 
 	if c.Bool("html") {
 		err = exportHtml("./export/html", words)
@@ -166,7 +167,7 @@ func export(c *cli.Context) error {
 			return err
 		}
 	} else if c.Bool("csv") {
-		err = exportToCSV("./export/result.csv", words)
+		err = exportToCSV("result.csv", words)
 		if err != nil {
 			return err
 		}

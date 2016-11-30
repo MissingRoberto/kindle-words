@@ -1,17 +1,18 @@
 package main
 
-import(
-    "html/template"
+import (
+	"html/template"
 )
 
 type Book struct {
-  Name  string
-  Words []Word
+	Name  string
+	Words []Word
 }
 
-type Word struct{
-  Value string
-  Usage template.HTML
-  IsEnglish bool
-  Language string
+type Word struct {
+	Value     string
+	Usage     template.HTML
+	IsEnglish bool
+	Language  string
+	Frecuency int
 }
